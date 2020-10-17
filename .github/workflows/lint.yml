@@ -1,0 +1,21 @@
+# This is a basic workflow to help you get started with Actions
+
+name: c-linter
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the develop branch
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  c-linter:
+    name: c-linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: c-linter
+        uses: ArtificialAmateur/clang-tidy-action@master
+    env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
