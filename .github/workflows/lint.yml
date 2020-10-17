@@ -18,4 +18,4 @@ jobs:
       - name: c-linter
         uses: ArtificialAmateur/clang-tidy-action@master
     env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
