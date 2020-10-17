@@ -11,6 +11,9 @@ public:
 	virtual void Initialize(sf::RenderWindow* Window)
 	{
 	}
+	virtual void ProcessInput(sf::Event event)
+	{
+	}
 	virtual void Update(sf::RenderWindow* Window)
 	{
 	}
@@ -44,14 +47,29 @@ public:
 		}
 	}
 
+    void ProcessInput(sf::Event event)
+    {
+		if (this->state != NULL)
+		{
+			this->state->ProcessInput(event);
+		}
+    }
+
 	void Update()
 	{
 		if (this->state != NULL)
 		{
 			this->state->Update(this->Window);
-			this->state->Render(this->Window);
 		}
 	}
+
+    void Render()
+    {
+		if (this->state != NULL)
+		{
+            this->state->Render(this->Window);
+		}
+    }
 
 	~connect4_gamestate()
 	{

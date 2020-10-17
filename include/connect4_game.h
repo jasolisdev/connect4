@@ -10,6 +10,7 @@ class connect4_game: public tiny_state
 public:
 	connect4_game(){}
 	void Initialize(sf::RenderWindow* window);
+    void ProcessInput(sf::Event event);
 	void Update(sf::RenderWindow* window);
     void Render(sf::RenderWindow* window);
 	void Destroy(sf::RenderWindow* window);

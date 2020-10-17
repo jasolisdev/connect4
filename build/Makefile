@@ -32,7 +32,8 @@ endif
 
 clean:
 	@${MAKE} --no-print-directory -C . -f sfml_project.make clean
-
+run:
+	cd ../bin/linux/Debug && ./sfml_project
 help:
 	@echo "Usage: make [config=name] [target]"
 	@echo ""

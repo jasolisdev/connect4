@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Entity.h"
+#include <iostream>
 
 extern int redCount;
 extern int blackCount;
@@ -25,40 +26,18 @@ class EntityManager
         this->entities.insert(std::make_pair(name, entity));
     }
 
+    void ProcessInput(){}
+
     void Update() 
     {
         for (auto& iterator : this->entities) 
         {
             if (iterator.second->Active()) 
             {
-                if (iterator.second->Group() == 3) 
-                {
-                    for (auto& iterator2 : this->entities) 
-                    {
-                        if (iterator2.second->Active()) 
-                        {
-                            if (iterator2.second->Group() == 2) 
-                            {
-                            }
-                            if (iterator2.second->Group() == 1) 
-                            {
-                            }
-                        }
-                    }
-                }
                 iterator.second->Update();
-            } else 
-            {
-                toRemove.push_back(iterator.first);
             }
         }
 
-        while (toRemove.size() > 0) 
-        {
-            this->entities.erase(toRemove[toRemove.size() - 1]);
-            toRemove.pop_back();
-        }
-        toRemove.clear();
     }
 
     void Reset() 
@@ -71,10 +50,7 @@ class EntityManager
     {
         for (auto& iterator : this->entities) 
         {
-            if (iterator.second->Active()) 
-            {
                 iterator.second->Render(window);
-            }
         }
     }
 

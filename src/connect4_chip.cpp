@@ -25,8 +25,6 @@ void Chip::Update()
 {
 	if (this->active)
 	{
-        /* sf::Event event; */
-
         if (group_id == 2)
         {
             this->active = 0;
@@ -37,7 +35,6 @@ void Chip::Update()
             {
                 redCount = 0;
                 std::cout << "Red is out of plays!" << std::endl;
-                /* coreState->SetState(new game_over()); */
             }
         }
         else if (group_id == 3)
@@ -49,7 +46,6 @@ void Chip::Update()
             {
                 blackCount = 0;
                 std::cout << "Black is out of plays!" << std::endl;
-                /* coreState->SetState(new game_over()); */
             }
         }
 	}

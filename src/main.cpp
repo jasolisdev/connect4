@@ -9,9 +9,9 @@ using namespace std;
 connect4_gamestate* coreState;
 
 bool exitGame = false;
-bool redTurn = true;
-bool blackTurn = false;
-bool isRed = false;
+/* bool redTurn = true; */
+/* bool blackTurn = false; */
+/* bool isRed = false; */
 
 int main() 
 {
@@ -48,31 +48,7 @@ int main()
                 window.close();
             }
 
-            int X = event.mouseButton.x;
-            int Y = event.mouseButton.y;
-
-            if (sf::Event::MouseButtonPressed && 
-                    event.mouseButton.button == sf::Mouse::Left && redTurn == true) 
-            {
-                isRed = true;
-
-                std::cout << "X: " << X << " Y: " << Y << std::endl;
-                coreState->state->manager.AddEntity("Red Chip", new Chip(X, Y, isRed));
-
-                redTurn = false;
-                blackTurn = true;
-            }
-            if (sf::Event::MouseButtonPressed &&
-                event.mouseButton.button == sf::Mouse::Right && blackTurn == true) 
-            {
-                isRed = false;
-
-                std::cout << "X: " << X << " Y: " << Y << std::endl;
-                coreState->state->manager.AddEntity("Black Chip", new Chip(X, Y, isRed));
-
-                blackTurn = false;
-                redTurn = true;
-            }
+            coreState->ProcessInput(event);
         }
 
         // FrameRate Clock
@@ -87,6 +63,7 @@ int main()
         }
 
         window.draw(bImage);
+        coreState->Render();
         coreState->Update();
         window.display();
     }
