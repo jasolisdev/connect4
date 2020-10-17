@@ -4,11 +4,12 @@
 // Copyright (C) 2007-2018 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
+// In no event will the authors be held liable for any damages arising from the
+// use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented;
 //    you must not claim that you wrote the original software.
@@ -28,65 +29,60 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Window/Export.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Export.hpp>
 
-
-namespace sf
-{
+namespace sf {
 class Window;
 
 ////////////////////////////////////////////////////////////
 /// \brief Give access to the real-time state of the touches
 ///
 ////////////////////////////////////////////////////////////
-class SFML_WINDOW_API Touch
-{
+class SFML_WINDOW_API Touch {
 public:
+  ////////////////////////////////////////////////////////////
+  /// \brief Check if a touch event is currently down
+  ///
+  /// \param finger Finger index
+  ///
+  /// \return True if \a finger is currently touching the screen, false
+  /// otherwise
+  ///
+  ////////////////////////////////////////////////////////////
+  static bool isDown(unsigned int finger);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Check if a touch event is currently down
-    ///
-    /// \param finger Finger index
-    ///
-    /// \return True if \a finger is currently touching the screen, false otherwise
-    ///
-    ////////////////////////////////////////////////////////////
-    static bool isDown(unsigned int finger);
+  ////////////////////////////////////////////////////////////
+  /// \brief Get the current position of a touch in desktop coordinates
+  ///
+  /// This function returns the current touch position
+  /// in global (desktop) coordinates.
+  ///
+  /// \param finger Finger index
+  ///
+  /// \return Current position of \a finger, or undefined if it's not down
+  ///
+  ////////////////////////////////////////////////////////////
+  static Vector2i getPosition(unsigned int finger);
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the current position of a touch in desktop coordinates
-    ///
-    /// This function returns the current touch position
-    /// in global (desktop) coordinates.
-    ///
-    /// \param finger Finger index
-    ///
-    /// \return Current position of \a finger, or undefined if it's not down
-    ///
-    ////////////////////////////////////////////////////////////
-    static Vector2i getPosition(unsigned int finger);
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the current position of a touch in window coordinates
-    ///
-    /// This function returns the current touch position
-    /// relative to the given window.
-    ///
-    /// \param finger Finger index
-    /// \param relativeTo Reference window
-    ///
-    /// \return Current position of \a finger, or undefined if it's not down
-    ///
-    ////////////////////////////////////////////////////////////
-    static Vector2i getPosition(unsigned int finger, const Window& relativeTo);
+  ////////////////////////////////////////////////////////////
+  /// \brief Get the current position of a touch in window coordinates
+  ///
+  /// This function returns the current touch position
+  /// relative to the given window.
+  ///
+  /// \param finger Finger index
+  /// \param relativeTo Reference window
+  ///
+  /// \return Current position of \a finger, or undefined if it's not down
+  ///
+  ////////////////////////////////////////////////////////////
+  static Vector2i getPosition(unsigned int finger, const Window &relativeTo);
 };
 
 } // namespace sf
 
-
 #endif // SFML_TOUCH_HPP
-
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Touch

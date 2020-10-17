@@ -4,11 +4,12 @@
 // Copyright (C) 2007-2018 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
+// In no event will the authors be held liable for any damages arising from the
+// use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented;
 //    you must not claim that you wrote the original software.
@@ -28,55 +29,49 @@
 ////////////////////////////////////////////////////////////
 // Headers
 ////////////////////////////////////////////////////////////
-#include <SFML/Window/Export.hpp>
 #include <SFML/System/String.hpp>
+#include <SFML/Window/Export.hpp>
 
-
-namespace sf
-{
+namespace sf {
 ////////////////////////////////////////////////////////////
 /// \brief Give access to the system clipboard
 ///
 ////////////////////////////////////////////////////////////
-class SFML_WINDOW_API Clipboard
-{
+class SFML_WINDOW_API Clipboard {
 public:
+  ////////////////////////////////////////////////////////////
+  /// \brief Get the content of the clipboard as string data
+  ///
+  /// This function returns the content of the clipboard
+  /// as a string. If the clipboard does not contain string
+  /// it returns an empty sf::String object.
+  ///
+  /// \return Clipboard contents as sf::String object
+  ///
+  ////////////////////////////////////////////////////////////
+  static String getString();
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Get the content of the clipboard as string data
-    ///
-    /// This function returns the content of the clipboard
-    /// as a string. If the clipboard does not contain string
-    /// it returns an empty sf::String object.
-    ///
-    /// \return Clipboard contents as sf::String object
-    ///
-    ////////////////////////////////////////////////////////////
-    static String getString();
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Set the content of the clipboard as string data
-    ///
-    /// This function sets the content of the clipboard as a
-    /// string.
-    ///
-    /// \warning Due to limitations on some operating systems,
-    ///          setting the clipboard contents is only
-    ///          guaranteed to work if there is currently an
-    ///          open window for which events are being handled.
-    ///
-    /// \param text sf::String containing the data to be sent
-    /// to the clipboard
-    ///
-    ////////////////////////////////////////////////////////////
-    static void setString(const String& text);
+  ////////////////////////////////////////////////////////////
+  /// \brief Set the content of the clipboard as string data
+  ///
+  /// This function sets the content of the clipboard as a
+  /// string.
+  ///
+  /// \warning Due to limitations on some operating systems,
+  ///          setting the clipboard contents is only
+  ///          guaranteed to work if there is currently an
+  ///          open window for which events are being handled.
+  ///
+  /// \param text sf::String containing the data to be sent
+  /// to the clipboard
+  ///
+  ////////////////////////////////////////////////////////////
+  static void setString(const String &text);
 };
 
 } // namespace sf
 
-
 #endif // SFML_CLIPBOARD_HPP
-
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Clipboard
