@@ -1,4 +1,5 @@
 workspace "sfml_project"
+  architecture "x86"
   configurations { "Debug", "Release" }
   defines {"SFML_STATIC"}
   cppdialect "C++17"
@@ -13,8 +14,7 @@ newoption {
 outputdir = "%{cfg.system}_%{cfg.buildcfg}-%{cfg.architecture}"
 
 if os.host() == "windows" then
-    architecture "x86"
-
+   
     if not _OPTIONS["sfmlpath"] then
          _OPTIONS["sfmlpath"] = "vendor/%{cfg.system}/SFML-2.5.1"
     end
@@ -55,7 +55,6 @@ end
 project "sfml_project"
   kind "ConsoleApp"
   language "C++"
-  toolset "clang"
   targetdir "bin/%{cfg.system}/%{cfg.buildcfg}"
 
   -- includedirs (_OPTIONS["sfmlpath"].."/include")
@@ -130,3 +129,5 @@ end
 --         "sfml-network"
 --     }
 -- end
+
+
