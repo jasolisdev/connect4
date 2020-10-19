@@ -6,58 +6,58 @@
 #include "EntityManager.h"
 
 class tiny_state {
-   public:
-    EntityManager manager;
-    virtual void Initialize(sf::RenderWindow* Window) {}
-    virtual void ProcessInput(sf::Event event) {}
-    virtual void Update(sf::RenderWindow* Window) {}
-    virtual void Render(sf::RenderWindow* Window) {}
-    virtual void Destroy(sf::RenderWindow* Window) {}
+ public:
+  EntityManager manager;
+  virtual void Initialize(sf::RenderWindow* Window) {}
+  virtual void ProcessInput(sf::Event event) {}
+  virtual void Update(sf::RenderWindow* Window) {}
+  virtual void Render(sf::RenderWindow* Window) {}
+  virtual void Destroy(sf::RenderWindow* Window) {}
 
-   private:
+ private:
 };
 
 class connect4_gamestate {
-   public:
-    connect4_gamestate(sf::RenderWindow* Window) { this->Window = Window; }
+ public:
+  connect4_gamestate(sf::RenderWindow* Window) { this->Window = Window; }
 
-    void SetState(tiny_state* nextState) {
-        if (this->state != NULL) {
-            /* this->state->Destroy(this->Window); */
-        }
-        this->state = nextState;
-        if (this->state != NULL) {
-            this->state->Initialize(this->Window);
-        }
+  void SetState(tiny_state* nextState) {
+    if (this->state != NULL) {
+      /* this->state->Destroy(this->Window); */
     }
-
-    void ProcessInput(sf::Event event) {
-        if (this->state != NULL) {
-            this->state->ProcessInput(event);
-        }
+    this->state = nextState;
+    if (this->state != NULL) {
+      this->state->Initialize(this->Window);
     }
+  }
 
-    void Update() {
-        if (this->state != NULL) {
-            this->state->Update(this->Window);
-        }
+  void ProcessInput(sf::Event event) {
+    if (this->state != NULL) {
+      this->state->ProcessInput(event);
     }
+  }
 
-    void Render() {
-        if (this->state != NULL) {
-            this->state->Render(this->Window);
-        }
+  void Update() {
+    if (this->state != NULL) {
+      this->state->Update(this->Window);
     }
+  }
 
-    ~connect4_gamestate() {
-        if (this->state != NULL) {
-            this->state->Destroy(this->Window);
-        }
+  void Render() {
+    if (this->state != NULL) {
+      this->state->Render(this->Window);
     }
-    tiny_state* state;
+  }
 
-   private:
-    sf::RenderWindow* Window;
+  ~connect4_gamestate() {
+    if (this->state != NULL) {
+      this->state->Destroy(this->Window);
+    }
+  }
+  tiny_state* state;
+
+ private:
+  sf::RenderWindow* Window;
 };
 
 extern connect4_gamestate* coreState;

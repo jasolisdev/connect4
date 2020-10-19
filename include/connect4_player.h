@@ -4,12 +4,12 @@
 #include "Entity.h"
 
 class Player : public Entity {
-   public:
-    Player();
-    void Update();
+ public:
+  Player();
+  void Update();
 
-   private:
-    bool upKey, downKey, leftKey, rightKey, spaceKey, leftMouseButton;
+ private:
+  bool upKey, downKey, leftKey, rightKey, spaceKey, leftMouseButton;
 };
 
 #endif /* ifndef CONNECT4_PLAYER_H */
