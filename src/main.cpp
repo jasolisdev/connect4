@@ -1,23 +1,20 @@
-#include "../include/connect4_gamestate.h"
-#include "../include/connect4_game.h"
-#include "../include/connect4_chip.h"
-
 #include <iostream>
+
+#include "../include/connect4_chip.h"
+#include "../include/connect4_game.h"
+#include "../include/connect4_gamestate.h"
 
 using namespace std;
 
 connect4_gamestate* coreState;
 
 bool exitGame = false;
-/* bool redTurn = true; */
-/* bool blackTurn = false; */
-/* bool isRed = false; */
 
-int main() 
-{
+int main() {
     sf::Vector2i screenDimensions(780, 750);
     sf::RenderWindow window;
-    window.create(sf::VideoMode(screenDimensions.x, screenDimensions.y), "Connect4");
+    window.create(sf::VideoMode(screenDimensions.x, screenDimensions.y),
+                  "Connect4");
 
     /* window.setVerticalSyncEnabled(true); */
     window.setFramerateLimit(120);
@@ -37,14 +34,11 @@ int main()
     coreState->SetState(new connect4_game());
 
     // Main Loop
-    while (window.isOpen()) 
-    {
+    while (window.isOpen()) {
         sf::Event event;
 
-        while (window.pollEvent(event)) 
-        {
-            if (event.type == sf::Event::Closed) 
-            {
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
 

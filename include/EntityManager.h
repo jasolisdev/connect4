@@ -1,56 +1,47 @@
 #ifndef ENTITYMANAGER_H
 #define ENTITYMANAGER_H
 
+#include <iostream>
 #include <unordered_map>
 #include <vector>
 
 #include "Entity.h"
-#include <iostream>
 
 extern int redCount;
 extern int blackCount;
 
-class EntityManager 
-{
+class EntityManager {
    public:
     EntityManager() {}
 
-    void AddEntity(std::string name, Entity* entity) 
-    {
-        std::unordered_map<std::string, Entity*>::iterator found = this->entities.find(name);
-        while (found != this->entities.end()) 
-        {
+    void AddEntity(std::string name, Entity* entity) {
+        std::unordered_map<std::string, Entity*>::iterator found =
+            this->entities.find(name);
+        while (found != this->entities.end()) {
             name += "0";
             found = this->entities.find(name);
         }
         this->entities.insert(std::make_pair(name, entity));
     }
 
-    void ProcessInput(){}
+    void ProcessInput() {}
 
-    void Update() 
-    {
-        for (auto& iterator : this->entities) 
-        {
-            if (iterator.second->Active()) 
-            {
+    void Update() {
+        for (auto& iterator : this->entities) {
+            if (iterator.second->Active()) {
                 iterator.second->Update();
             }
         }
-
     }
 
-    void Reset() 
-    {
+    void Reset() {
         this->entities.clear();
         this->toRemove.clear();
     }
 
-    void Render(sf::RenderWindow* window) 
-    {
-        for (auto& iterator : this->entities) 
-        {
-                iterator.second->Render(window);
+    void Render(sf::RenderWindow* window) {
+        for (auto& iterator : this->entities) {
+            iterator.second->Render(window);
         }
     }
 
