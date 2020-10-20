@@ -11,7 +11,7 @@ Chip::Chip(float x, float y, bool isRed) {
     this->Load("assets/redchip.png", sf::IntRect());
   } else {
     this->group_id = 3;
-    this->Load("assets/blackchip.png", sf::IntRect());
+    this->Load("assets/yellowchip.png", sf::IntRect());
   }
 
   this->setScale(sf::Vector2f(.8f, .8f));
@@ -25,11 +25,11 @@ void Chip::Update() {
       redCount -= 1;
     } else if (group_id == 3) {
       this->active = 0;
-      blackCount -= 1;
+      yellowCount -= 1;
     }
   }
 
-  if (redCount == 0 && blackCount == 0) {
+  if (redCount == 0 && yellowCount == 0) {
     coreState->SetState(new connect4_gg());
   }
 

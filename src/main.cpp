@@ -1,39 +1,18 @@
-#include <iostream>
-
-#include "../include/connect4_chip.h"
 #include "../include/connect4_game.h"
 #include "../include/connect4_gamestate.h"
-
-using namespace std;
 
 connect4_gamestate* coreState;
 
 bool exitGame = false;
 
 int main() {
-  sf::Vector2i screenDimensions(780, 750);
-  sf::RenderWindow window;
-  window.create(sf::VideoMode(screenDimensions.x, screenDimensions.y),
-                "Connect4");
+  sf::RenderWindow window(sf::VideoMode(1920, 1080), "Connect4");
 
-  /* window.setVerticalSyncEnabled(true); */
-  window.setFramerateLimit(120);
-
-  sf::Texture bgTexture;
-  sf::Sprite bImage;
-
-  if (!bgTexture.loadFromFile("assets/s01.png"))
-    std::cout << "Could not find s01.png" << std::endl;
-  bImage.setTexture(bgTexture);
-  bImage.setScale(1.0f, (float)screenDimensions.y / bgTexture.getSize().y);
-
-  sf::Clock clock;
-
-  // Create Main Menu Window
+  // Create Game State Window
   coreState = new connect4_gamestate(&window);
   coreState->SetState(new connect4_game());
 
-  // Main Loop
+  // Main Game Loop
   while (window.isOpen()) {
     sf::Event event;
 
@@ -41,26 +20,26 @@ int main() {
       if (event.type == sf::Event::Closed) {
         window.close();
       }
+      if (event.type == sf::Event::Resized) {
+        // resize my view
+        /* view.setSize({static_cast<float>(event.size.width), */
+        /*               static_cast<float>(event.size.height)}); */
+        /* window.setView(view); */
+      }
+        coreState->ProcessInput(event);
+      }
 
-      coreState->ProcessInput(event);
+      if (exitGame) {
+        window.close();
+      }
+
+      window.clear(sf::Color::White);
+
+      coreState->Render();
+      coreState->Update();
+
+      window.display();
     }
 
-    // FrameRate Clock
-    sf::Time time = clock.getElapsedTime();
-    /* std::cout << 1.0f / time.asSeconds() << std::endl; */
-    clock.restart().asSeconds();
-
-    window.clear(sf::Color::White);
-
-    if (exitGame) {
-      window.close();
-    }
-
-    window.draw(bImage);
-    coreState->Render();
-    coreState->Update();
-    window.display();
+    return 0;
   }
-
-  return 0;
-}

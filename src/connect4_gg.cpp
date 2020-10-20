@@ -6,12 +6,12 @@ void connect4_gg::Initialize(sf::RenderWindow* window) {
   enterKey = false;
   escapeKey = false;
   sf::Font* font = new sf::Font();
-  font->loadFromFile("assets/Ubuntu.ttf");
+  font->loadFromFile("assets/connect4_font.otf");
 
   this->gameOverText = new sf::Text(
-      "\t\t\t\t\tGame Over! \n Press Enter to Start a New Game \n\t\t\t or Esc "
+      "\t\t\t\tGame Over!\nPress Enter to Start a New Game\n\t\t\t or Esc "
       "to Exit Game.",
-      *font, 40U);
+      *font, 70U);
   this->gameOverText->setFillColor(sf::Color::Red);
   this->gameOverText->setStyle(sf::Text::Bold);
   this->gameOverText->setOrigin(
@@ -24,7 +24,7 @@ void connect4_gg::Update(sf::RenderWindow* window) {
   if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && enterKey) {
     coreState->SetState(new connect4_game());
     redCount = 21;
-    blackCount = 21;
+    yellowCount = 21;
   }
 
   if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape) && escapeKey) {

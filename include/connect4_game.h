@@ -15,8 +15,21 @@ class connect4_game : public tiny_state {
   void Destroy(sf::RenderWindow* window);
 
  private:
+  sf::FloatRect textRect;
+  sf::FloatRect gridRect;
+
+  sf::RectangleShape rectangle;
+  
+  sf::Text* connect4Text;
   sf::Text* redChipsText;
-  sf::Text* blackChipsText;
+  sf::Text* yellowChipsText;
+
+  sf::Texture bgTexture;
+  sf::Sprite bgImage;
+
+  sf::Texture gridTexture;
+  sf::Sprite gridImage;
+  sf::View view;
 };
 
 #endif /* ifndef CONNECT4_GAME_H */
