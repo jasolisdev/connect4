@@ -22,21 +22,10 @@ void Chip::Update() {
   if (this->active) {
     if (group_id == 2) {
       this->active = 0;
-
       redCount -= 1;
-
-      if (redCount < 0) {
-        redCount = 0;
-        std::cout << "Red is out of plays!" << std::endl;
-      }
     } else if (group_id == 3) {
       this->active = 0;
       blackCount -= 1;
-
-      if (blackCount < 0) {
-        blackCount = 0;
-        std::cout << "Black is out of plays!" << std::endl;
-      }
     }
   }
 

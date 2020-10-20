@@ -12,7 +12,7 @@ class connect4_gg : public tiny_state {
 
  private:
   sf::Text* gameOverText;
-  bool enterKey;
+  bool enterKey, escapeKey;
 };
 
 #endif /* ifndef CONNECT4_GG_H */

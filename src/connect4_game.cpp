@@ -37,7 +37,7 @@ void connect4_game::ProcessInput(sf::Event event) {
     isRed = true;
 
     std::cout << "X: " << X << " Y: " << Y << std::endl;
-    this->manager.AddEntity("Red Chip", new Chip(X, Y, isRed));
+    this->manager.AddEntity("Red Chip", new Chip(X - 30, Y - 30, isRed));
 
     redTurn = false;
     blackTurn = true;
@@ -47,7 +47,7 @@ void connect4_game::ProcessInput(sf::Event event) {
     isRed = false;
 
     std::cout << "X: " << X << " Y: " << Y << std::endl;
-    this->manager.AddEntity("Black Chip", new Chip(X, Y, isRed));
+    this->manager.AddEntity("Black Chip", new Chip(X - 30, Y - 30, isRed));
 
     blackTurn = false;
     redTurn = true;

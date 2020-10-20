@@ -15,7 +15,7 @@ class EntityManager {
   EntityManager() {}
 
   void AddEntity(std::string name, Entity* entity) {
-    std::unordered_map<std::string, Entity*>::iterator found =
+    std::map<std::string, Entity*>::iterator found =
         this->entities.find(name);
     while (found != this->entities.end()) {
       name += "0";
@@ -48,7 +48,7 @@ class EntityManager {
   ~EntityManager() {}
 
  private:
-  std::unordered_map<std::string, Entity*> entities;
+  std::map<std::string, Entity*> entities;
   std::vector<std::string> toRemove;
 };
 
