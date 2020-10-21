@@ -9,7 +9,7 @@ class tiny_state {
  public:
   EntityManager manager;
   virtual void Initialize(sf::RenderWindow* Window) {}
-  virtual void ProcessInput(sf::Event event) {}
+  virtual void ProcessInput(sf::RenderWindow* Window, sf::Event event) {}
   virtual void Update(sf::RenderWindow* Window) {}
   virtual void Render(sf::RenderWindow* Window) {}
   virtual void Destroy(sf::RenderWindow* Window) {}
@@ -31,9 +31,9 @@ class connect4_gamestate {
     }
   }
 
-  void ProcessInput(sf::Event event) {
+  void ProcessInput(sf::RenderWindow* window, sf::Event event) {
     if (this->state != NULL) {
-      this->state->ProcessInput(event);
+      this->state->ProcessInput(window, event);
     }
   }
 

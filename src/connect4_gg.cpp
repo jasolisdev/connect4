@@ -18,7 +18,7 @@ void connect4_gg::Initialize(sf::RenderWindow* window) {
       sf::Vector2f(this->gameOverText->getGlobalBounds().width / 2,
                    this->gameOverText->getGlobalBounds().height / 2));
   this->gameOverText->setPosition(
-      sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+      sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f));
 }
 void connect4_gg::Update(sf::RenderWindow* window) {
   if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && enterKey) {

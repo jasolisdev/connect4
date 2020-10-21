@@ -9,7 +9,7 @@ class connect4_game : public tiny_state {
  public:
   connect4_game() {}
   void Initialize(sf::RenderWindow* window);
-  void ProcessInput(sf::Event event);
+  void ProcessInput(sf::RenderWindow* window, sf::Event event);
   void Update(sf::RenderWindow* window);
   void Render(sf::RenderWindow* window);
   void Destroy(sf::RenderWindow* window);
@@ -18,8 +18,14 @@ class connect4_game : public tiny_state {
   sf::FloatRect textRect;
   sf::FloatRect gridRect;
 
-  sf::RectangleShape rectangle;
-  
+  sf::RectangleShape column1;
+  sf::RectangleShape column2;
+  sf::RectangleShape column3;
+  sf::RectangleShape column4;
+  sf::RectangleShape column5;
+  sf::RectangleShape column6;
+  sf::RectangleShape column7;
+
   sf::Text* connect4Text;
   sf::Text* redChipsText;
   sf::Text* yellowChipsText;

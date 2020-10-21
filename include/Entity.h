@@ -7,6 +7,7 @@
 class Entity : public sf::Sprite {
  public:
   Entity() {
+    this->group_id = 0;
     this->active = 1;
     this->texture = new sf::Texture();
   }

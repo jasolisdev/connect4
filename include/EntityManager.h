@@ -14,9 +14,8 @@ class EntityManager {
  public:
   EntityManager() {}
 
-  void AddEntity(std::string name, Entity* entity) {
-    std::map<std::string, Entity*>::iterator found =
-        this->entities.find(name);
+  void AddEntity(std::string name, Entity *entity) {
+    std::map<std::string, Entity *>::iterator found = this->entities.find(name);
     while (found != this->entities.end()) {
       name += "0";
       found = this->entities.find(name);
@@ -27,7 +26,7 @@ class EntityManager {
   void ProcessInput() {}
 
   void Update() {
-    for (auto& iterator : this->entities) {
+    for (auto &iterator : this->entities) {
       if (iterator.second->Active()) {
         iterator.second->Update();
       }
@@ -39,8 +38,8 @@ class EntityManager {
     this->toRemove.clear();
   }
 
-  void Render(sf::RenderWindow* window) {
-    for (auto& iterator : this->entities) {
+  void Render(sf::RenderWindow *window) {
+    for (auto &iterator : this->entities) {
       iterator.second->Render(window);
     }
   }
@@ -48,7 +47,7 @@ class EntityManager {
   ~EntityManager() {}
 
  private:
-  std::map<std::string, Entity*> entities;
+  std::map<std::string, Entity *> entities;
   std::vector<std::string> toRemove;
 };
 

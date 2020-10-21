@@ -10,6 +10,8 @@ class Chip : public Entity {
 
  private:
   bool leftMouseButton;
+  sf::RectangleShape rectangle;
+  sf::RenderWindow* window;
 };
 
 #endif /* ifndef CONNECT4_CHIP_H */

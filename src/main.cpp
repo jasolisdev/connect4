@@ -1,7 +1,11 @@
+#if (!DEBUG)
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#endif
+
 #include "../include/connect4_game.h"
 #include "../include/connect4_gamestate.h"
 
-connect4_gamestate* coreState;
+connect4_gamestate *coreState;
 
 bool exitGame = false;
 
@@ -26,20 +30,20 @@ int main() {
         /*               static_cast<float>(event.size.height)}); */
         /* window.setView(view); */
       }
-        coreState->ProcessInput(event);
-      }
-
-      if (exitGame) {
-        window.close();
-      }
-
-      window.clear(sf::Color::White);
-
-      coreState->Render();
-      coreState->Update();
-
-      window.display();
+      coreState->ProcessInput(&window, event);
     }
 
-    return 0;
+    if (exitGame) {
+      window.close();
+    }
+
+    window.clear();
+
+    coreState->Render();
+    coreState->Update();
+
+    window.display();
   }
+
+  return 0;
+}
