@@ -3,6 +3,9 @@
 
 #include "connect4_gamestate.h"
 
+extern int redCount;
+extern int yellowCount;
+
 class connect4_gg : public tiny_state {
  public:
   void Initialize(sf::RenderWindow* window);

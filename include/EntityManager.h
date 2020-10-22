@@ -7,9 +7,6 @@
 
 #include "Entity.h"
 
-extern int redCount;
-extern int yellowCount;
-
 class EntityManager {
  public:
   EntityManager() {}

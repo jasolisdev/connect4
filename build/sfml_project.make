@@ -73,12 +73,10 @@ OBJECTS :=
 GENERATED += $(OBJDIR)/connect4_chip.o
 GENERATED += $(OBJDIR)/connect4_game.o
 GENERATED += $(OBJDIR)/connect4_gg.o
-GENERATED += $(OBJDIR)/connect4_player.o
 GENERATED += $(OBJDIR)/main.o
 OBJECTS += $(OBJDIR)/connect4_chip.o
 OBJECTS += $(OBJDIR)/connect4_game.o
 OBJECTS += $(OBJDIR)/connect4_gg.o
-OBJECTS += $(OBJDIR)/connect4_player.o
 OBJECTS += $(OBJDIR)/main.o
 
 # Rules
@@ -150,9 +148,6 @@ $(OBJDIR)/connect4_game.o: ../src/connect4_game.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/connect4_gg.o: ../src/connect4_gg.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/connect4_player.o: ../src/connect4_player.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: ../src/main.cpp

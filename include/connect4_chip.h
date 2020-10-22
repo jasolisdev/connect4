@@ -3,6 +3,9 @@
 
 #include "Entity.h"
 
+extern int redCount;
+extern int yellowCount;
+
 class Chip : public Entity {
  public:
   Chip(float x, float y, bool isColor);
@@ -10,7 +13,6 @@ class Chip : public Entity {
 
  private:
   bool leftMouseButton;
-  sf::RectangleShape rectangle;
   sf::RenderWindow* window;
 };
 

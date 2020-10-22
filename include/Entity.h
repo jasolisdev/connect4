@@ -7,7 +7,6 @@
 class Entity : public sf::Sprite {
  public:
   Entity() {
-    this->group_id = 0;
     this->active = 1;
     this->texture = new sf::Texture();
   }
@@ -25,6 +24,15 @@ class Entity : public sf::Sprite {
   void Load(std::string filename, sf::IntRect size) {
     this->texture->loadFromFile(filename, size);
     this->setTexture(*this->texture);
+  }
+
+  void createBox(sf::RectangleShape box) {
+    this->box.setSize(sf::Vector2f(100, 50));
+    this->box.setOutlineColor(sf::Color::Red);
+    this->box.setFillColor(sf::Color::Transparent);
+    this->box.setOutlineThickness(5);
+    /* this->texture->loadFromFile(filename, size); */
+    /* this->setTexture(*this->texture); */
   }
 
   bool collision(Entity* entity) {
@@ -47,6 +55,7 @@ class Entity : public sf::Sprite {
 
  private:
   sf::Texture* texture;
+  sf::RectangleShape box;
 };
 
 #endif /* ifndef ENTITY_H */
