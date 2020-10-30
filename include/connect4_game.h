@@ -16,6 +16,10 @@ class connect4_game : public tiny_state {
   void Destroy(sf::RenderWindow* window);
 
  private:
+  EntityManager* manager;
+
+  sf::Font* font;
+
   sf::FloatRect textRect;
 
   sf::RectangleShape column1;
@@ -51,6 +55,8 @@ class connect4_game : public tiny_state {
 
   std::vector<sf::RectangleShape> grid;
   sf::Vector2f gridSize;
+
+  float gridX, gridY;
 };
 
 #endif /* ifndef CONNECT4_GAME_H */

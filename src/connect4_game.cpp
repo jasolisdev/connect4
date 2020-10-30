@@ -1,28 +1,32 @@
 #include "../include/connect4_game.h"
 
-#include <stdio.h>
-
 #include <iostream>
 #include <string>
 
+#include "../include/connect4_box.h"
 #include "../include/connect4_chip.h"
 
-int redCount = 21;
-int yellowCount = 21;
+size_t redCount = 21;
+size_t yellowCount = 21;
 
 bool redTurn = true;
 bool yellowTurn = false;
 bool isRed = false;
+bool isEmpty = true;
+bool isFilled = false;
 
 const size_t numberOfColumns = 7;
 const size_t numberOfRows = 6;
 
 void connect4_game::Initialize(sf::RenderWindow* window) {
-  buffer.loadFromFile("assets/chipPlaced.wav");
-  dropSound.setBuffer(buffer);
-  dropSound.setVolume(50);
+  // Initialize Sound Buffer
+  this->buffer.loadFromFile("assets/chipPlaced.wav");
+  this->dropSound.setBuffer(buffer);
+  this->dropSound.setVolume(50);
 
-  sf::Font* font = new sf::Font();
+  this->manager = new EntityManager;
+
+  this->font = new sf::Font();
   font->loadFromFile("assets/connect4_font.otf");
 
   this->connect4Text = new sf::Text("CONNECT4", *font, 60U);
@@ -64,63 +68,60 @@ void connect4_game::Initialize(sf::RenderWindow* window) {
   gridImage.setScale(1.2f, 1.2f);
   gridImage.setPosition(sf::Vector2f(480, 140));
 
-  // Bounding Boxes for spawning chip entities
-  this->column1.setSize(sf::Vector2f(98, 660));
-  this->column1.setOutlineColor(sf::Color::Magenta);
+  // Bounding Boxes for where to spawn chip entities
+  this->column1.setSize(sf::Vector2f(90, 660));
+  this->column1.setOutlineColor(sf::Color::Transparent);
   this->column1.setFillColor(sf::Color::Transparent);
   this->column1.setOutlineThickness(5);
-  this->column1.setPosition(573, 275);
+  this->column1.setPosition(575, 275);
 
-  this->column2.setSize(sf::Vector2f(98, 660));
-  this->column2.setOutlineColor(sf::Color::Magenta);
+  this->column2.setSize(sf::Vector2f(90, 660));
+  this->column2.setOutlineColor(sf::Color::Transparent);
   this->column2.setFillColor(sf::Color::Transparent);
   this->column2.setOutlineThickness(5);
   this->column2.setPosition(683, 275);
 
-  this->column3.setSize(sf::Vector2f(98, 660));
-  this->column3.setOutlineColor(sf::Color::Magenta);
+  this->column3.setSize(sf::Vector2f(90, 660));
+  this->column3.setOutlineColor(sf::Color::Transparent);
   this->column3.setFillColor(sf::Color::Transparent);
   this->column3.setOutlineThickness(5);
   this->column3.setPosition(793, 275);
 
-  this->column4.setSize(sf::Vector2f(98, 660));
-  this->column4.setOutlineColor(sf::Color::Magenta);
+  this->column4.setSize(sf::Vector2f(90, 660));
+  this->column4.setOutlineColor(sf::Color::Transparent);
   this->column4.setFillColor(sf::Color::Transparent);
   this->column4.setOutlineThickness(5);
   this->column4.setPosition(903, 275);
 
-  this->column5.setSize(sf::Vector2f(98, 660));
-  this->column5.setOutlineColor(sf::Color::Magenta);
+  this->column5.setSize(sf::Vector2f(90, 660));
+  this->column5.setOutlineColor(sf::Color::Transparent);
   this->column5.setFillColor(sf::Color::Transparent);
   this->column5.setOutlineThickness(5);
   this->column5.setPosition(1013, 275);
 
-  this->column6.setSize(sf::Vector2f(98, 660));
-  this->column6.setOutlineColor(sf::Color::Magenta);
+  this->column6.setSize(sf::Vector2f(90, 660));
+  this->column6.setOutlineColor(sf::Color::Transparent);
   this->column6.setFillColor(sf::Color::Transparent);
   this->column6.setOutlineThickness(5);
   this->column6.setPosition(1123, 275);
 
-  this->column7.setSize(sf::Vector2f(94, 660));
-  this->column7.setOutlineColor(sf::Color::Magenta);
+  this->column7.setSize(sf::Vector2f(90, 660));
+  this->column7.setOutlineColor(sf::Color::Transparent);
   this->column7.setFillColor(sf::Color::Transparent);
   this->column7.setOutlineThickness(5);
   this->column7.setPosition(1233, 275);
 
+  // Create a grid of Bounding Box Entities
   gridSize = sf::Vector2f(gridImage.getLocalBounds().width / numberOfColumns,
                           gridImage.getLocalBounds().height / numberOfRows);
 
   for (int x = 0; x < numberOfColumns; x++) {
     for (int y = 0; y < numberOfRows; y++) {
-      sf::RectangleShape cell(gridSize);
+      float gridX = (gridSize.x * x) + 565;
+      float gridY = ((gridSize.y - 15) * y) + 275;
 
-      cell.setFillColor(sf::Color::Transparent);
-      cell.setOutlineColor(sf::Color::Green);
-      cell.setOutlineThickness(3);
-      cell.setSize(sf::Vector2f(100, 100));
-      cell.setPosition(((gridSize.x) * x) + 565, ((gridSize.y - 15) * y) + 275);
-
-      grid.push_back(cell);
+      this->manager->AddEntity("Bounding Box",
+                               new Box(gridX, gridY, isEmpty, isFilled));
     }
   }
 }
@@ -132,54 +133,52 @@ void connect4_game::ProcessInput(sf::RenderWindow* window, sf::Event event) {
     if (event.mouseButton.button == sf::Mouse::Left && redTurn == true) {
       if (column1.getGlobalBounds().contains(
               window->mapPixelToCoords(sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 1\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 1\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(575, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(569, 150, isRed));
         dropSound.play();
-        /* this->manager.AddEntity("Box", new Box(570, 150)); */
-
       } else if (column2.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 2\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 2\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(685, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(685, 150, isRed));
         dropSound.play();
       } else if (column3.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 3\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 3\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(795, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(795, 150, isRed));
         dropSound.play();
       } else if (column4.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 4\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 4\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(905, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(905, 150, isRed));
         dropSound.play();
       } else if (column5.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 5\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 5\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(1015, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(1015, 150, isRed));
         dropSound.play();
       } else if (column6.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 6\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 6\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(1125, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(1125, 150, isRed));
         dropSound.play();
       } else if (column7.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 7\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 7\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = true;
-        this->manager.AddEntity("Red Chip", new Chip(1235, 150, isRed));
+        this->manager->AddEntity("Red Chip", new Chip(1235, 150, isRed));
         dropSound.play();
       }
 
@@ -190,52 +189,52 @@ void connect4_game::ProcessInput(sf::RenderWindow* window, sf::Event event) {
                redTurn == false) {
       if (column1.getGlobalBounds().contains(
               window->mapPixelToCoords(sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 1\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 1\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(575, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(575, 150, isRed));
         dropSound.play();
       } else if (column2.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 2\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 2\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(685, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(685, 150, isRed));
         dropSound.play();
       } else if (column3.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 3\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 3\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(795, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(795, 150, isRed));
         dropSound.play();
       } else if (column4.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 4\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 4\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(905, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(905, 150, isRed));
         dropSound.play();
       } else if (column5.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 5\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 5\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(1015, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(1015, 150, isRed));
         dropSound.play();
       } else if (column6.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 6\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 6\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(1125, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(1125, 150, isRed));
         dropSound.play();
       } else if (column7.getGlobalBounds().contains(window->mapPixelToCoords(
                      sf::Mouse::getPosition(*window)))) {
-        /* std::cout << "Mouse Clicked on Column 7\n"; */
-        /* std::cout << "X: " << X << " Y: " << Y << std::endl; */
+        // std::cout << "Mouse Clicked on Column 7\n";
+        // std::cout << "X: " << X << " Y: " << Y << std::endl;
         isRed = false;
-        this->manager.AddEntity("Yellow Chip", new Chip(1235, 150, isRed));
+        this->manager->AddEntity("Yellow Chip", new Chip(1235, 150, isRed));
         dropSound.play();
       }
 
@@ -266,7 +265,7 @@ void connect4_game::ProcessInput(sf::RenderWindow* window, sf::Event event) {
   // counter.
   // When int fourConnected == 4, game is over.
 
-  this->manager.ProcessInput();
+  this->manager->ProcessInput();
 }
 
 void connect4_game::Update(sf::RenderWindow* window) {
@@ -279,7 +278,7 @@ void connect4_game::Update(sf::RenderWindow* window) {
                                      std::to_string(yellowCount));
   }
 
-  this->manager.Update();
+  this->manager->Update();
 }
 
 void connect4_game::Render(sf::RenderWindow* window) {
@@ -295,8 +294,6 @@ void connect4_game::Render(sf::RenderWindow* window) {
     window->draw(yellowTurnImage);
   }
 
-  this->manager.Render(window);
-
   window->draw(gridImage);
 
   window->draw(*this->connect4Text);
@@ -311,9 +308,13 @@ void connect4_game::Render(sf::RenderWindow* window) {
   window->draw(column6);
   window->draw(column7);
 
-  for (auto boundingBox : grid) {
-    window->draw(boundingBox);
-  }
+  this->manager->Render(window);
 }
 
-void connect4_game::Destroy(sf::RenderWindow* window) {}
+void connect4_game::Destroy(sf::RenderWindow* window) {
+  delete this->connect4Text;
+  delete this->redChipsText;
+  delete this->yellowChipsText;
+  delete this->font;
+  delete this->manager;
+}
