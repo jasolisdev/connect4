@@ -80,6 +80,7 @@ project "sfml_project"
         "vorbis",
         "ogg",
         "ws2_32",
+	"openal32"
     }
 
   filter {"configurations:Release", "system:windows"}
