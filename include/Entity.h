@@ -7,32 +7,29 @@
 class Entity : public sf::Sprite {
  public:
   Entity() {
+    this->group_id = 0;
     this->active = 1;
     this->texture = new sf::Texture();
   }
   Entity(std::string filename) {
+    this->group_id = 0;
     this->active = 1;
     this->texture = new sf::Texture();
     this->Load(filename, sf::IntRect());
   }
   Entity(std::string filename, sf::IntRect size) {
+    this->group_id = 0;
     this->active = 1;
     this->texture = new sf::Texture();
     this->Load(filename, size);
   }
-
+  void Load(std::string filename) {
+    this->Load(filename, sf::IntRect());
+    this->setTexture(*this->texture);
+  }
   void Load(std::string filename, sf::IntRect size) {
     this->texture->loadFromFile(filename, size);
     this->setTexture(*this->texture);
-  }
-
-  void createBox(sf::RectangleShape box) {
-    this->box.setSize(sf::Vector2f(100, 50));
-    this->box.setOutlineColor(sf::Color::Red);
-    this->box.setFillColor(sf::Color::Transparent);
-    this->box.setOutlineThickness(5);
-    /* this->texture->loadFromFile(filename, size); */
-    /* this->setTexture(*this->texture); */
   }
 
   bool collision(Entity* entity) {
@@ -47,7 +44,7 @@ class Entity : public sf::Sprite {
 
   virtual void Render(sf::RenderWindow* window) { window->draw(*this); }
 
-  ~Entity() {}
+  ~Entity() { delete this->texture; }
 
  protected:
   int active;
@@ -55,7 +52,6 @@ class Entity : public sf::Sprite {
 
  private:
   sf::Texture* texture;
-  sf::RectangleShape box;
 };
 
 #endif /* ifndef ENTITY_H */

@@ -3,9 +3,6 @@
 
 #include "connect4_gamestate.h"
 
-extern int redCount;
-extern int yellowCount;
-
 class connect4_gg : public tiny_state {
  public:
   void Initialize(sf::RenderWindow* window);
@@ -14,8 +11,12 @@ class connect4_gg : public tiny_state {
   void Destroy(sf::RenderWindow* window);
 
  private:
+  sf::Font* font;
   sf::Text* gameOverText;
   bool enterKey, escapeKey;
 };
+
+extern size_t redCount;
+extern size_t yellowCount;
 
 #endif /* ifndef CONNECT4_GG_H */

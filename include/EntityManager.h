@@ -2,7 +2,7 @@
 #define ENTITYMANAGER_H
 
 #include <iostream>
-#include <unordered_map>
+#include <map>
 #include <vector>
 
 #include "Entity.h"
@@ -41,7 +41,12 @@ class EntityManager {
     }
   }
 
-  ~EntityManager() {}
+  ~EntityManager() {
+    for (auto &iterator : this->entities) {
+      delete iterator.second;
+    }
+    this->entities.clear();
+  }
 
  private:
   std::map<std::string, Entity *> entities;

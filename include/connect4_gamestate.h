@@ -13,8 +13,6 @@ class tiny_state {
   virtual void Update(sf::RenderWindow* Window) {}
   virtual void Render(sf::RenderWindow* Window) {}
   virtual void Destroy(sf::RenderWindow* Window) {}
-
- private:
 };
 
 class connect4_gamestate {
@@ -23,7 +21,7 @@ class connect4_gamestate {
 
   void SetState(tiny_state* nextState) {
     if (this->state != NULL) {
-      /* this->state->Destroy(this->Window); */
+      // this->state->Destroy(this->Window);
     }
     this->state = nextState;
     if (this->state != NULL) {

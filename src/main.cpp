@@ -24,12 +24,14 @@ int main() {
       if (event.type == sf::Event::Closed) {
         window.close();
       }
-      if (event.type == sf::Event::Resized) {
-        // resize my view
-        /* view.setSize({static_cast<float>(event.size.width), */
-        /*               static_cast<float>(event.size.height)}); */
-        /* window.setView(view); */
-      }
+
+      // resize my view
+      // if (event.type == sf::Event::Resized) {
+      //   view.setSize({static_cast<float>(event.size.width),
+      //                 static_cast<float>(event.size.height)});
+      //   window.setView(view);
+      // }
+
       coreState->ProcessInput(&window, event);
     }
 

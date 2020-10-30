@@ -5,7 +5,7 @@
 void connect4_gg::Initialize(sf::RenderWindow* window) {
   enterKey = false;
   escapeKey = false;
-  sf::Font* font = new sf::Font();
+  this->font = new sf::Font();
   font->loadFromFile("assets/connect4_font.otf");
 
   this->gameOverText = new sf::Text(
@@ -38,4 +38,7 @@ void connect4_gg::Render(sf::RenderWindow* window) {
   window->clear(sf::Color::White);
   window->draw(*this->gameOverText);
 }
-void connect4_gg::Destroy(sf::RenderWindow* window) {}
+void connect4_gg::Destroy(sf::RenderWindow* window) {
+  delete this->gameOverText;
+  delete this->font;
+}
