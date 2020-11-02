@@ -8,7 +8,7 @@
 #include "Entity.h"
 
 class EntityManager {
- public:
+public:
   EntityManager() {}
 
   void AddEntity(std::string name, Entity *entity) {
@@ -48,7 +48,7 @@ class EntityManager {
     this->entities.clear();
   }
 
- private:
+private:
   std::map<std::string, Entity *> entities;
   std::vector<std::string> toRemove;
 };

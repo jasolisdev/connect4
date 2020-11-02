@@ -22,4 +22,4 @@ void Box::Update() {
   //    this->box.setOutlineColor(sf::Color::Yellow);
 }
 
-void Box::Render(sf::RenderWindow* window) { window->draw(this->box); }
+void Box::Render(sf::RenderWindow *window) { window->draw(this->box); }

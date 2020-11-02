@@ -4,15 +4,15 @@
 #include "connect4_gamestate.h"
 
 class connect4_gg : public tiny_state {
- public:
-  void Initialize(sf::RenderWindow* window);
-  void Update(sf::RenderWindow* window);
-  void Render(sf::RenderWindow* window);
-  void Destroy(sf::RenderWindow* window);
+public:
+  void Initialize(sf::RenderWindow *window);
+  void Update(sf::RenderWindow *window);
+  void Render(sf::RenderWindow *window);
+  void Destroy(sf::RenderWindow *window);
 
- private:
-  sf::Font* font;
-  sf::Text* gameOverText;
+private:
+  sf::Font *font;
+  sf::Text *gameOverText;
   bool enterKey, escapeKey;
 };
 

@@ -2,7 +2,7 @@
 
 #include "../include/connect4_game.h"
 
-void connect4_gg::Initialize(sf::RenderWindow* window) {
+void connect4_gg::Initialize(sf::RenderWindow *window) {
   enterKey = false;
   escapeKey = false;
   this->font = new sf::Font();
@@ -20,7 +20,7 @@ void connect4_gg::Initialize(sf::RenderWindow* window) {
   this->gameOverText->setPosition(
       sf::Vector2f(window->getSize().x / 2.f, window->getSize().y / 2.f));
 }
-void connect4_gg::Update(sf::RenderWindow* window) {
+void connect4_gg::Update(sf::RenderWindow *window) {
   if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return) && enterKey) {
     coreState->SetState(new connect4_game());
     redCount = 21;
@@ -34,11 +34,11 @@ void connect4_gg::Update(sf::RenderWindow* window) {
   enterKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return);
   escapeKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape);
 }
-void connect4_gg::Render(sf::RenderWindow* window) {
+void connect4_gg::Render(sf::RenderWindow *window) {
   window->clear(sf::Color::White);
   window->draw(*this->gameOverText);
 }
-void connect4_gg::Destroy(sf::RenderWindow* window) {
+void connect4_gg::Destroy(sf::RenderWindow *window) {
   delete this->gameOverText;
   delete this->font;
 }

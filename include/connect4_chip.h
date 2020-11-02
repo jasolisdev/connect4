@@ -4,13 +4,13 @@
 #include "Entity.h"
 
 class Chip : public Entity {
- public:
+public:
   Chip(float x, float y, bool isColor);
   void Update();
 
- private:
+private:
   bool leftMouseButton;
-  sf::RenderWindow* window;
+  sf::RenderWindow *window;
 };
 
 extern size_t redCount;

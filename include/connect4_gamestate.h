@@ -6,20 +6,20 @@
 #include "EntityManager.h"
 
 class tiny_state {
- public:
+public:
   EntityManager manager;
-  virtual void Initialize(sf::RenderWindow* Window) {}
-  virtual void ProcessInput(sf::RenderWindow* Window, sf::Event event) {}
-  virtual void Update(sf::RenderWindow* Window) {}
-  virtual void Render(sf::RenderWindow* Window) {}
-  virtual void Destroy(sf::RenderWindow* Window) {}
+  virtual void Initialize(sf::RenderWindow *Window) {}
+  virtual void ProcessInput(sf::RenderWindow *Window, sf::Event event) {}
+  virtual void Update(sf::RenderWindow *Window) {}
+  virtual void Render(sf::RenderWindow *Window) {}
+  virtual void Destroy(sf::RenderWindow *Window) {}
 };
 
 class connect4_gamestate {
- public:
-  connect4_gamestate(sf::RenderWindow* Window) { this->Window = Window; }
+public:
+  connect4_gamestate(sf::RenderWindow *Window) { this->Window = Window; }
 
-  void SetState(tiny_state* nextState) {
+  void SetState(tiny_state *nextState) {
     if (this->state != NULL) {
       // this->state->Destroy(this->Window);
     }
@@ -29,7 +29,7 @@ class connect4_gamestate {
     }
   }
 
-  void ProcessInput(sf::RenderWindow* window, sf::Event event) {
+  void ProcessInput(sf::RenderWindow *window, sf::Event event) {
     if (this->state != NULL) {
       this->state->ProcessInput(window, event);
     }
@@ -52,13 +52,13 @@ class connect4_gamestate {
       this->state->Destroy(this->Window);
     }
   }
-  tiny_state* state;
+  tiny_state *state;
 
- private:
-  sf::RenderWindow* Window;
+private:
+  sf::RenderWindow *Window;
 };
 
-extern connect4_gamestate* coreState;
+extern connect4_gamestate *coreState;
 extern bool exitGame;
 
 #endif /* ifndef CONNECT4_GAMESTATE_H */

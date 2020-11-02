@@ -4,14 +4,14 @@
 #include "Entity.h"
 
 class Box : public Entity, public sf::RectangleShape {
- public:
+public:
   Box(float x, float y, bool isEmpty, bool isFilled);
   void Update();
-  void Render(sf::RenderWindow* window);
+  void Render(sf::RenderWindow *window);
 
- private:
+private:
   bool leftMouseButton;
-  sf::RenderWindow* window;
+  sf::RenderWindow *window;
   sf::RectangleShape box;
 };
 

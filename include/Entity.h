@@ -5,7 +5,7 @@
 #include <string>
 
 class Entity : public sf::Sprite {
- public:
+public:
   Entity() {
     this->group_id = 0;
     this->active = 1;
@@ -32,7 +32,7 @@ class Entity : public sf::Sprite {
     this->setTexture(*this->texture);
   }
 
-  bool collision(Entity* entity) {
+  bool collision(Entity *entity) {
     return (this->getGlobalBounds().intersects(entity->getGlobalBounds()));
   }
 
@@ -42,16 +42,16 @@ class Entity : public sf::Sprite {
 
   virtual void Update() {}
 
-  virtual void Render(sf::RenderWindow* window) { window->draw(*this); }
+  virtual void Render(sf::RenderWindow *window) { window->draw(*this); }
 
   ~Entity() { delete this->texture; }
 
- protected:
+protected:
   int active;
   int group_id;
 
- private:
-  sf::Texture* texture;
+private:
+  sf::Texture *texture;
 };
 
 #endif /* ifndef ENTITY_H */

@@ -7,18 +7,18 @@
 #include "connect4_gamestate.h"
 
 class connect4_game : public tiny_state {
- public:
+public:
   connect4_game() {}
-  void Initialize(sf::RenderWindow* window);
-  void ProcessInput(sf::RenderWindow* window, sf::Event event);
-  void Update(sf::RenderWindow* window);
-  void Render(sf::RenderWindow* window);
-  void Destroy(sf::RenderWindow* window);
+  void Initialize(sf::RenderWindow *window);
+  void ProcessInput(sf::RenderWindow *window, sf::Event event);
+  void Update(sf::RenderWindow *window);
+  void Render(sf::RenderWindow *window);
+  void Destroy(sf::RenderWindow *window);
 
- private:
-  EntityManager* manager;
+private:
+  EntityManager *manager;
 
-  sf::Font* font;
+  sf::Font *font;
 
   sf::FloatRect textRect;
 
@@ -30,9 +30,9 @@ class connect4_game : public tiny_state {
   sf::RectangleShape column6;
   sf::RectangleShape column7;
 
-  sf::Text* connect4Text;
-  sf::Text* redChipsText;
-  sf::Text* yellowChipsText;
+  sf::Text *connect4Text;
+  sf::Text *redChipsText;
+  sf::Text *yellowChipsText;
 
   sf::Texture bgTexture;
   sf::Sprite bgImage;

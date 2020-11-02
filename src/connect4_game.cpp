@@ -18,7 +18,7 @@ bool isFilled = false;
 const size_t numberOfColumns = 7;
 const size_t numberOfRows = 6;
 
-void connect4_game::Initialize(sf::RenderWindow* window) {
+void connect4_game::Initialize(sf::RenderWindow *window) {
   // Initialize Sound Buffer
   this->buffer.loadFromFile("assets/chipPlaced.wav");
   this->dropSound.setBuffer(buffer);
@@ -125,7 +125,7 @@ void connect4_game::Initialize(sf::RenderWindow* window) {
     }
   }
 }
-void connect4_game::ProcessInput(sf::RenderWindow* window, sf::Event event) {
+void connect4_game::ProcessInput(sf::RenderWindow *window, sf::Event event) {
   int X = event.mouseButton.x;
   int Y = event.mouseButton.y;
 
@@ -268,7 +268,7 @@ void connect4_game::ProcessInput(sf::RenderWindow* window, sf::Event event) {
   this->manager->ProcessInput();
 }
 
-void connect4_game::Update(sf::RenderWindow* window) {
+void connect4_game::Update(sf::RenderWindow *window) {
   if (redCount == 0 && yellowCount == 0) {
     this->redChipsText->setString("Red Chips: 0");
     this->yellowChipsText->setString("Yellow Chips: 0");
@@ -281,7 +281,7 @@ void connect4_game::Update(sf::RenderWindow* window) {
   this->manager->Update();
 }
 
-void connect4_game::Render(sf::RenderWindow* window) {
+void connect4_game::Render(sf::RenderWindow *window) {
   window->draw(bgImage);
 
   if (!isRed) {
@@ -311,7 +311,7 @@ void connect4_game::Render(sf::RenderWindow* window) {
   this->manager->Render(window);
 }
 
-void connect4_game::Destroy(sf::RenderWindow* window) {
+void connect4_game::Destroy(sf::RenderWindow *window) {
   delete this->connect4Text;
   delete this->redChipsText;
   delete this->yellowChipsText;
