@@ -4,11 +4,12 @@
 // Copyright (C) 2007-2018 Laurent Gomila (laurent@sfml-dev.org)
 //
 // This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this software.
+// In no event will the authors be held liable for any damages arising from the
+// use of this software.
 //
 // Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
+// including commercial applications, and to alter it and redistribute it
+// freely, subject to the following restrictions:
 //
 // 1. The origin of this software must not be misrepresented;
 //    you must not claim that you wrote the original software.
@@ -31,50 +32,45 @@
 #include <SFML/Audio/Export.hpp>
 #include <string>
 
-
-namespace sf
-{
+namespace sf {
 ////////////////////////////////////////////////////////////
 /// \brief Abstract base class for sound file encoding
 ///
 ////////////////////////////////////////////////////////////
-class SFML_AUDIO_API SoundFileWriter
-{
+class SFML_AUDIO_API SoundFileWriter {
 public:
+  ////////////////////////////////////////////////////////////
+  /// \brief Virtual destructor
+  ///
+  ////////////////////////////////////////////////////////////
+  virtual ~SoundFileWriter() {}
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Virtual destructor
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual ~SoundFileWriter() {}
+  ////////////////////////////////////////////////////////////
+  /// \brief Open a sound file for writing
+  ///
+  /// \param filename     Path of the file to open
+  /// \param sampleRate   Sample rate of the sound
+  /// \param channelCount Number of channels of the sound
+  ///
+  /// \return True if the file was successfully opened
+  ///
+  ////////////////////////////////////////////////////////////
+  virtual bool open(const std::string &filename, unsigned int sampleRate,
+                    unsigned int channelCount) = 0;
 
-    ////////////////////////////////////////////////////////////
-    /// \brief Open a sound file for writing
-    ///
-    /// \param filename     Path of the file to open
-    /// \param sampleRate   Sample rate of the sound
-    /// \param channelCount Number of channels of the sound
-    ///
-    /// \return True if the file was successfully opened
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual bool open(const std::string& filename, unsigned int sampleRate, unsigned int channelCount) = 0;
-
-    ////////////////////////////////////////////////////////////
-    /// \brief Write audio samples to the open file
-    ///
-    /// \param samples Pointer to the sample array to write
-    /// \param count   Number of samples to write
-    ///
-    ////////////////////////////////////////////////////////////
-    virtual void write(const Int16* samples, Uint64 count) = 0;
+  ////////////////////////////////////////////////////////////
+  /// \brief Write audio samples to the open file
+  ///
+  /// \param samples Pointer to the sample array to write
+  /// \param count   Number of samples to write
+  ///
+  ////////////////////////////////////////////////////////////
+  virtual void write(const Int16 *samples, Uint64 count) = 0;
 };
 
 } // namespace sf
 
-
 #endif // SFML_SOUNDFILEWRITER_HPP
-
 
 ////////////////////////////////////////////////////////////
 /// \class sf::SoundFileWriter
@@ -103,7 +99,8 @@ public:
 ///         // return true if the writer can handle the format
 ///     }
 ///
-///     virtual bool open(const std::string& filename, unsigned int sampleRate, unsigned int channelCount)
+///     virtual bool open(const std::string& filename, unsigned int sampleRate,
+///     unsigned int channelCount)
 ///     {
 ///         // open the file 'filename' for writing,
 ///         // write the given sample rate and channel count to the file header
@@ -113,7 +110,8 @@ public:
 ///     virtual void write(const sf::Int16* samples, sf::Uint64 count)
 ///     {
 ///         // write 'count' samples stored at address 'samples',
-///         // convert them (for example to normalized float) if the format requires it
+///         // convert them (for example to normalized float) if the format
+///         requires it
 ///     }
 /// };
 ///
