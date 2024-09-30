@@ -1,11 +1,19 @@
-on: push
 name: clang-format Code Formatter
+
+on: [push, pull_request]  # Ensure the workflow triggers on both push and pull request events
+
 jobs:
   lint:
-    name: clang-format Code Formatter
+    name: Clang Code Formatter
     runs-on: ubuntu-latest
+
     steps:
-    - name: Clang Code Formatter
-      uses: antoinealb/clang-format-action@clang9
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Make sure the code is checked out
+
+    - name: Run clang-format
+      uses: antoinealb/clang-format-action@v1  # Use a stable and recommended version
+      with:
+        extensions: 'cpp,h,hpp'  # Specify the file extensions to format
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
