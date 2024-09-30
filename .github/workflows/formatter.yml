@@ -1,6 +1,6 @@
 name: clang-format Code Formatter
 
-on: [push, pull_request]  # Trigger on both push and pull requests
+on: [push, pull_request]  # Trigger on both push and pull request events
 
 jobs:
   lint:
@@ -12,8 +12,9 @@ jobs:
       uses: actions/checkout@v2  # Ensure that your repository is checked out
 
     - name: Run clang-format
-      uses: Doctest/clang-format@v1  # Use a different action for clang-format
+      uses: git-auto-commit-action/clang-format-action@v1  # Use this clang-format action
       with:
-        extensions: 'cpp,h,hpp'  # Specify which file extensions to check
+        clang-version: 14  # Specify the clang version
+        extensions: 'cpp,h,hpp'  # Specify the file extensions to format
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use the GitHub token
